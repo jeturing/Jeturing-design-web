@@ -1,0 +1,19 @@
+:root {
+  /* argo-web — Palette 02: Oxford Legal */
+  /* Style: Profesional · Corporativo · Legal */
+  --color-primary:   #1B3A6B;  /* Azul marino oscuro — marca, headers */
+  --color-accent:    #E8C96B;  /* Dorado suave — CTAs, highlights */
+  --bg-base:         #F5F6FA;  /* Background principal claro */
+  --bg-surface:      #FFFFFF;  /* Cards, sidebars */
+  --text-primary:    #1C1C2E;  /* Texto principal */
+  --color-secondary: #2E5499;  /* Azul medio — links, subheaders */
+  --color-muted:     #4A4A5A;  /* Texto secundario */
+
+  /* Component examples */
+  /* .btn-primary { background-color: var(--color-primary); color: #fff; } */
+}
+
+.btn-primary { background-color: var(--color-primary); color: #ffffff; }
+.btn-primary:hover { background-color: var(--color-accent); color: var(--text-primary); }
+.card { background-color: var(--bg-surface); color: var(--text-primary); border-left: 3px solid var(--color-primary); }
+.metric-highlight { color: var(--color-secondary); font-weight: 700; }
