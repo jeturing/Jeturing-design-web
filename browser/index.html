@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>argo-web · Browser Control</title>
+<style>
+:root{--bg:#0a0f1e;--sur:#111827;--bdr:#1e3a5f;--pri:#003B73;--acc:#00FF9F;--txt:#f0f4ff;--mut:#88a9c3;--wrn:#E1A140;--err:#ff6b6b}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:system-ui,sans-serif;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.topbar{display:flex;align-items:center;gap:8px;background:var(--sur);padding:7px 12px;border-bottom:1px solid var(--bdr);flex-shrink:0}
+.logo{color:var(--acc);font-weight:700;font-size:12px;white-space:nowrap;letter-spacing:.5px}
+#url{flex:1;background:#1c2a3a;border:1px solid var(--bdr);color:var(--txt);padding:5px 10px;border-radius:5px;font-size:12px;outline:none;min-width:0}
+#url:focus{border-color:var(--acc)}
+.btn{background:var(--pri);color:var(--acc);border:none;padding:5px 11px;border-radius:5px;cursor:pointer;font-size:11px;font-weight:600;white-space:nowrap;transition:filter .15s}
+.btn:hover{filter:brightness(1.4)}
+.btn.active{background:var(--acc);color:var(--bg)}
+.shortcuts{display:flex;gap:5px;padding:5px 12px;flex-wrap:wrap;background:#0d1829;border-bottom:1px solid var(--bdr);flex-shrink:0}
+.body{display:flex;flex:1;overflow:hidden}
+.side{width:190px;background:var(--sur);border-right:1px solid var(--bdr);display:flex;flex-direction:column;flex-shrink:0;font-size:11px;overflow:hidden}
+.ss{padding:8px;border-bottom:1px solid var(--bdr)}
+.ss h4{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--mut);margin-bottom:5px}
+.log-wrap{flex:1;overflow-y:auto;padding:5px 7px}
+.le{padding:2px 0;border-bottom:1px solid #1a2a40;color:var(--mut);font-size:10px}
+.le.ok{color:var(--acc)}.le.w{color:var(--wrn)}.le.e{color:var(--err)}
+.viewer{flex:1;overflow:auto;display:flex;flex-direction:column;align-items:center;background:#070d1a;padding:10px;gap:8px}
+.vbar{display:flex;gap:6px;align-items:center;flex-shrink:0;font-size:11px;color:var(--mut)}
+#screen{max-width:100%;border:1px solid var(--bdr);border-radius:6px;box-shadow:0 8px 40px rgba(0,0,0,.7);cursor:crosshair;transition:opacity .2s}
+#screen.dim{opacity:.35}
+.sbar{padding:3px 12px;background:var(--sur);border-top:1px solid var(--bdr);font-size:10px;color:var(--mut);display:flex;gap:16px;flex-shrink:0;align-items:center}
+.ok{color:var(--acc)}.w{color:var(--wrn)}
+#spin{position:fixed;inset:0;background:rgba(10,15,30,.7);display:none;z-index:999;align-items:center;justify-content:center}
+#spin span{background:var(--sur);border:1px solid var(--acc);color:var(--acc);padding:10px 20px;border-radius:8px;font-size:13px}
+/* eval panel */
+.eval-panel{display:none;position:fixed;top:60px;right:10px;width:240px;background:var(--sur);border:1px solid var(--bdr);border-radius:8px;padding:12px;z-index:100;font-size:11px}
+.eval-panel.show{display:block}
+.eval-panel h4{color:var(--acc);margin-bottom:8px;font-size:12px}
+.metric{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--bdr)}
+.score-num{font-size:28px;font-weight:700;text-align:center;margin:8px 0;color:var(--acc)}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="logo">argo-web</span>
+  <input id="url" type="text" value="https://localhost" placeholder="URL...">
+  <button class="btn" onclick="go()">▶ Ir</button>
+  <button class="btn" onclick="shot()">↺</button>
+  <button class="btn" id="aBtn" onclick="toggleAuto()">⏵</button>
+  <button class="btn" onclick="toggleEval()">🎨</button>
+</div>
+
+<div class="shortcuts">
+  <button class="btn" onclick="nav('https://app.sajet.us')">SAJET</button>
+  <button class="btn" onclick="nav('https://techeels.sajet.us')">techeels</button>
+  <button class="btn" onclick="nav('https://agroliferd.sajet.us')">agroliferd</button>
+  <button class="btn" onclick="nav('https://joficreditosrd.sajet.us')">joficreditos</button>
+  <button class="btn" onclick="nav('https://jeturing.com')">jeturing.com</button>
+  <span style="color:var(--bdr)">│</span>
+  <button class="btn" onclick="resize(375,812)">📱</button>
+  <button class="btn" onclick="resize(1280,900)">��</button>
+  <button class="btn" onclick="resize(768,1024)">📋</button>
+  <span style="color:var(--bdr)">│</span>
+  <button class="btn" onclick="scroll(-99999)">⬆</button>
+  <button class="btn" onclick="scroll(500)">⬇</button>
+</div>
+
+<div class="body">
+  <div class="side">
+    <div class="ss"><h4>Estado</h4><div id="st" class="ok">✅ Activo</div></div>
+    <div class="ss">
+      <h4>Acciones</h4>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <button class="btn" style="text-align:left" onclick="shot()">📷 Capturar</button>
+        <button class="btn" style="text-align:left" onclick="fullpage()">📄 Full page</button>
+      </div>
+    </div>
+    <div class="ss" style="font-size:10px;color:var(--mut)">
+      <h4>Instrucciones</h4>
+      <div>Click en imagen → clic real en Chrome</div>
+      <div style="margin-top:3px">🎨 → Evaluar design-web</div>
+      <div style="margin-top:3px">⏵ → Auto-refresh 8s</div>
+    </div>
+    <h4 style="padding:7px 8px 3px;font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--mut)">Log</h4>
+    <div class="log-wrap" id="log"></div>
+  </div>
+
+  <div class="viewer">
+    <div class="vbar">
+      <span id="inf">—</span>
+      <span id="ts" style="margin-left:8px">—</span>
+    </div>
+    <img id="screen" src="/current.jpg" alt="screenshot" onclick="clickAt(event)">
+  </div>
+</div>
+
+<div class="sbar">
+  <span class="ok" id="su">—</span>
+  <span id="sz">—</span>
+  <span style="margin-left:auto" id="sa" class="w">auto: OFF</span>
+</div>
+
+<!-- Eval panel -->
+<div class="eval-panel" id="evalPanel">
+  <h4>🎨 design-web score</h4>
+  <div class="score-num" id="scoreNum">—</div>
+  <div id="metrics"></div>
+  <button class="btn" style="width:100%;margin-top:8px" onclick="runEval()">Evaluar ahora</button>
+</div>
+
+<div id="spin" style="display:none;position:fixed;inset:0;background:rgba(10,15,30,.7);z-index:999;display:none;align-items:center;justify-content:center">
+  <span style="background:#111827;border:1px solid #00FF9F;color:#00FF9F;padding:10px 20px;border-radius:8px;font-size:13px">⏳ Procesando...</span>
+</div>
+
+<script>
+let autoInt=null, autoOn=false, evalOpen=false;
+
+function log(m,t=''){
+  const el=document.getElementById('log');
+  const d=document.createElement('div');d.className='le '+t;
+  d.textContent=new Date().toLocaleTimeString()+' '+m;
+  el.insertBefore(d,el.firstChild);
+  if(el.children.length>100)el.removeChild(el.lastChild);
+}
+function spin(on){
+  document.getElementById('spin').style.display=on?'flex':'none';
+}
+async function api(act,data={}){
+  try{
+    const r=await fetch('/api',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:act,...data})});
+    return await r.json();
+  }catch(e){return{ok:false,error:String(e)}}
+}
+function reload(){
+  const img=document.getElementById('screen');
+  const ts=Date.now();
+  img.classList.add('dim');
+  const tmp=new Image();
+  tmp.onload=()=>{
+    img.src='/current.jpg?t='+ts;img.classList.remove('dim');
+    document.getElementById('inf').textContent=tmp.naturalWidth+'×'+tmp.naturalHeight+'px';
+    document.getElementById('ts').textContent=new Date().toLocaleTimeString();
+    log('📷 Screenshot','ok');
+  };
+  tmp.onerror=()=>{img.classList.remove('dim');log('❌ Sin imagen','e')};
+  tmp.src='/current.jpg?t='+ts;
+}
+async function shot(){spin(true);const r=await api('screenshot');spin(false);if(r.ok)reload();else log('❌ '+(r.error||'err'),'e');}
+async function go(){
+  const url=document.getElementById('url').value.trim();if(!url)return;
+  spin(true);log('→ '+url,'w');
+  try{document.getElementById('su').textContent=new URL(url).hostname}catch(e){}
+  const r=await api('navigate',{url});spin(false);
+  if(r.ok){log('✅ '+url,'ok');reload();}else log('❌ '+(r.error||'err'),'e');
+}
+function nav(u){document.getElementById('url').value=u;go();}
+async function scroll(y){await api('scroll',{y});await shot();}
+async function resize(w,h){
+  spin(true);log(`resize ${w}×${h}`,'w');
+  const r=await api('resize',{w,h});spin(false);
+  if(r.ok)reload();
+}
+async function fullpage(){spin(true);log('Full page...');const r=await api('screenshot');spin(false);if(r.ok)reload();}
+function toggleAuto(){
+  autoOn=!autoOn;
+  const b=document.getElementById('aBtn'),s=document.getElementById('sa');
+  if(autoOn){autoInt=setInterval(shot,8000);b.classList.add('active');s.textContent='auto: 8s';s.className='ok';log('Auto ON','ok');}
+  else{clearInterval(autoInt);b.classList.remove('active');s.textContent='auto: OFF';s.className='w';log('Auto OFF');}
+}
+function toggleEval(){
+  evalOpen=!evalOpen;
+  document.getElementById('evalPanel').classList.toggle('show',evalOpen);
+  if(evalOpen)runEval();
+}
+async function runEval(){
+  log('Evaluando...','w');
+  const r=await api('evaluate');
+  if(!r.ok)return;
+  document.getElementById('scoreNum').textContent=r.score+'/100';
+  document.getElementById('scoreNum').style.color=r.score>=70?'#00FF9F':r.score>=50?'#E1A140':'#ff6b6b';
+  let html='';
+  for(const[k,v]of Object.entries(r.metrics||{})){
+    html+=`<div class="metric"><span>${k}</span><span style="color:${v.pass?'#00FF9F':'#ff6b6b'}">${v.value}</span></div>`;
+  }
+  document.getElementById('metrics').innerHTML=html;
+  log(`Score: ${r.score}/100`, r.score>=70?'ok':'w');
+}
+async function clickAt(e){
+  const img=e.target;
+  const rect=img.getBoundingClientRect();
+  const x=Math.round((e.clientX-rect.left)/rect.width*(img.naturalWidth||1280));
+  const y=Math.round((e.clientY-rect.top)/rect.height*(img.naturalHeight||900));
+  log(`🖱 click (${x},${y})`);
+  await api('click',{x,y});
+  setTimeout(reload, 800);
+}
+document.getElementById('url').addEventListener('keydown',e=>{if(e.key==='Enter')go();});
+log('Panel activo','ok');reload();
+</script>
+</body>
+</html>
