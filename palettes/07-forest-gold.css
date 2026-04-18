@@ -1,0 +1,16 @@
+:root {
+  /* argo-web — Palette 07: Forest Gold */
+  /* Style: Lujoso · Profesional · Naturaleza Premium */
+  --color-primary:   #122620;  /* Charcoal verde oscuro — marca */
+  --color-accent:    #D6AD60;  /* Gold — CTAs, highlights */
+  --bg-base:         #0E1E1A;  /* Background dark verde */
+  --bg-surface:      #122620;  /* Cards, sidebars */
+  --text-primary:    #F4EBD0;  /* Cream — texto principal */
+  --color-secondary: #B68D40;  /* Tan — subheaders */
+  --color-muted:     #7A9E8A;  /* Texto secundario verde suave */
+}
+
+.btn-primary { background-color: var(--color-accent); color: var(--bg-base); }
+.btn-primary:hover { background-color: var(--color-secondary); color: var(--text-primary); }
+.card { background-color: var(--bg-surface); color: var(--text-primary); border-left: 3px solid var(--color-accent); }
+.metric-highlight { color: var(--color-accent); font-weight: 700; }
