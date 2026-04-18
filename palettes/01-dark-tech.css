@@ -1,0 +1,24 @@
+:root {
+  /* argo-web — Palette 01: Dark Tech */
+  /* Style: SaaS · Dashboards · Tech Premium */
+  --color-primary:   #003B73;  /* Azul marino — marca, headers, CTAs */
+  --color-accent:    #00FF9F;  /* Verde neón — highlights, estados activos */
+  --bg-base:         #0a0f1e;  /* Background principal dark */
+  --bg-surface:      #111827;  /* Cards, sidebars */
+  --text-primary:    #f0f4ff;  /* Texto principal */
+  --color-secondary: #0055a8;  /* Azul medio — links, subheaders */
+  --color-muted:     #94a3b8;  /* Texto secundario */
+
+  /* Usage */
+  /* --color-primary  → headers, nav, CTAs primarios */
+  /* --color-accent   → badges, métricas, hover states */
+  /* --bg-base        → body background */
+  /* --bg-surface     → cards, panels, modals */
+  /* --text-primary   → body text */
+}
+
+/* Component examples */
+.btn-primary { background-color: var(--color-primary); color: var(--text-primary); }
+.btn-primary:hover { background-color: var(--color-accent); color: var(--bg-base); }
+.card { background-color: var(--bg-surface); color: var(--text-primary); border-left: 3px solid var(--color-primary); }
+.metric-highlight { color: var(--color-accent); font-weight: 700; }
