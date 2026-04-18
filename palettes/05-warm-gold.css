@@ -1,0 +1,16 @@
+:root {
+  /* argo-web — Palette 05: Warm Gold */
+  /* Style: Moderno · Lujoso · Cálido */
+  --color-primary:   #532200;  /* Puce — marca, headers */
+  --color-accent:    #E1A140;  /* Gold — CTAs, highlights */
+  --bg-base:         #3A1500;  /* Fondo oscuro cálido */
+  --bg-surface:      #532200;  /* Cards, sidebars */
+  --text-primary:    #EFCFA0;  /* Sand Dollar — texto principal */
+  --color-secondary: #914110;  /* Burnt Orange — subheaders */
+  --color-muted:     #C49A70;  /* Texto secundario dorado suave */
+}
+
+.btn-primary { background-color: var(--color-accent); color: var(--bg-base); }
+.btn-primary:hover { background-color: var(--color-secondary); color: var(--text-primary); }
+.card { background-color: var(--bg-surface); color: var(--text-primary); border-left: 3px solid var(--color-accent); }
+.metric-highlight { color: var(--color-accent); font-weight: 700; }
