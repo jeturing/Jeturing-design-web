@@ -1,0 +1,16 @@
+:root {
+  /* argo-web — Palette 10: Trust Warm */
+  /* Style: Confianza · Calidez · Profesional */
+  --color-primary:   #532200;  /* Puce — marca, headers */
+  --color-accent:    #E1A140;  /* Gold — CTAs, highlights */
+  --bg-base:         #FDF6EC;  /* Background claro cálido */
+  --bg-surface:      #FFFFFF;  /* Cards, sidebars */
+  --text-primary:    #2C1A0E;  /* Texto oscuro cálido */
+  --color-secondary: #914110;  /* Burnt Orange — subheaders */
+  --color-muted:     #EFCFA0;  /* Sand Dollar — texto secundario */
+}
+
+.btn-primary { background-color: var(--color-primary); color: #ffffff; }
+.btn-primary:hover { background-color: var(--color-accent); color: var(--text-primary); }
+.card { background-color: var(--bg-surface); color: var(--text-primary); border-left: 3px solid var(--color-primary); }
+.metric-highlight { color: var(--color-secondary); font-weight: 700; }
