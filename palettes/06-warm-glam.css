@@ -1,0 +1,16 @@
+:root {
+  /* argo-web — Palette 06: Warm Glam */
+  /* Style: Cálido · Glamuroso · Real Estate Premium */
+  --color-primary:   #28221E;  /* Zeus — marca, headers */
+  --color-accent:    #7F6951;  /* Shadow — CTAs, highlights */
+  --bg-base:         #CECBC8;  /* Cloud — Background claro */
+  --bg-surface:      #FFFFFF;  /* Cards, sidebars */
+  --text-primary:    #28221E;  /* Zeus — texto principal */
+  --color-secondary: #614E41;  /* Kabul — subheaders */
+  --color-muted:     #9C8D80;  /* Texto secundario neutro */
+}
+
+.btn-primary { background-color: var(--color-primary); color: #ffffff; }
+.btn-primary:hover { background-color: var(--color-accent); color: #ffffff; }
+.card { background-color: var(--bg-surface); color: var(--text-primary); border-left: 3px solid var(--color-accent); }
+.metric-highlight { color: var(--color-secondary); font-weight: 700; }
