@@ -1,0 +1,16 @@
+:root {
+  /* argo-web — Palette 04: Dark Luxury */
+  /* Style: Elegante · Sofisticado · Premium */
+  --color-primary:   #201315;  /* Black cálido — marca, headers */
+  --color-accent:    #E76D57;  /* Salmon — CTAs, highlights */
+  --bg-base:         #201315;  /* Background principal dark */
+  --bg-surface:      #2E1A1A;  /* Cards, sidebars */
+  --text-primary:    #F8F3EB;  /* Cream — texto principal */
+  --color-secondary: #56382D;  /* Carafe — subheaders, bordes */
+  --color-muted:     #A07060;  /* Texto secundario cálido */
+}
+
+.btn-primary { background-color: var(--color-accent); color: var(--text-primary); }
+.btn-primary:hover { opacity: 0.85; }
+.card { background-color: var(--bg-surface); color: var(--text-primary); border-left: 3px solid var(--color-accent); }
+.metric-highlight { color: var(--color-accent); font-weight: 700; }
