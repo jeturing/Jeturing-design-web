@@ -1,0 +1,744 @@
+{
+  "version": "2.10",
+  "_template": "design-web-sajet-v1",
+  "_instructions": "TEMPLATE — Duplicar y renombrar al iniciar nuevo proyecto web. Completar los frames vacíos con componentes del MCP magic antes de implementar.",
+  "children": [
+    {
+      "type": "frame",
+      "id": "cover",
+      "x": 0,
+      "y": 0,
+      "name": "🗂 PROJECT COVER",
+      "width": 1440,
+      "height": 220,
+      "fill": "#0a0f1e",
+      "layout": "vertical",
+      "gap": 12,
+      "padding": [40, 60],
+      "children": [
+        {
+          "type": "frame",
+          "id": "cover_meta",
+          "name": "meta-row",
+          "width": "fill_container",
+          "layout": "horizontal",
+          "gap": 24,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "logo_mark",
+              "name": "brand-mark",
+              "width": 40,
+              "height": 40,
+              "cornerRadius": 10,
+              "fill": "#003B73",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "logo_s",
+                  "name": "logoLetter",
+                  "fill": "#00FF9F",
+                  "content": "S",
+                  "fontFamily": "Space Grotesk",
+                  "fontSize": 20,
+                  "fontWeight": "bold"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "project_name",
+              "name": "PROJECT_NAME",
+              "fill": "#f0f4ff",
+              "content": "[ Nombre del Proyecto ]",
+              "fontFamily": "Space Grotesk",
+              "fontSize": 28,
+              "fontWeight": "bold"
+            },
+            {
+              "type": "text",
+              "id": "project_version",
+              "name": "version-badge",
+              "fill": "#00FF9F",
+              "content": "v0.1",
+              "fontFamily": "Space Grotesk",
+              "fontSize": 14,
+              "fontWeight": "600"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "project_desc",
+          "name": "PROJECT_DESC",
+          "fill": "#94a3b8",
+          "content": "[ Descripción del proyecto — stack, objetivo, audiencia ]",
+          "fontFamily": "Inter",
+          "fontSize": 15
+        },
+        {
+          "type": "frame",
+          "id": "cover_tags",
+          "name": "tags-row",
+          "layout": "horizontal",
+          "gap": 8,
+          "children": [
+            {
+              "type": "frame",
+              "id": "tag_svelte",
+              "name": "tag",
+              "padding": [4, 12],
+              "cornerRadius": 99,
+              "fill": "#003B73",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "tag_svelte_t",
+                  "fill": "#00FF9F",
+                  "content": "Svelte 5",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "tag_tw",
+              "name": "tag",
+              "padding": [4, 12],
+              "cornerRadius": 99,
+              "fill": "#1a2235",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "tag_tw_t",
+                  "fill": "#94a3b8",
+                  "content": "Tailwind CSS",
+                  "fontFamily": "Inter",
+                  "fontSize": 12
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "tag_motion",
+              "name": "tag",
+              "padding": [4, 12],
+              "cornerRadius": 99,
+              "fill": "#1a2235",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "tag_motion_t",
+                  "fill": "#94a3b8",
+                  "content": "Motion",
+                  "fontFamily": "Inter",
+                  "fontSize": 12
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "tag_date",
+              "name": "tag",
+              "padding": [4, 12],
+              "cornerRadius": 99,
+              "fill": "#1a2235",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "tag_date_t",
+                  "fill": "#475569",
+                  "content": "[ Fecha ]",
+                  "fontFamily": "Inter",
+                  "fontSize": 12
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "design_tokens",
+      "x": 0,
+      "y": 260,
+      "name": "🎨 DESIGN TOKENS",
+      "width": 1440,
+      "height": 300,
+      "fill": "#0a0f1e",
+      "layout": "vertical",
+      "gap": 24,
+      "padding": [32, 60],
+      "children": [
+        {
+          "type": "text",
+          "id": "dt_title",
+          "name": "section-title",
+          "fill": "#475569",
+          "content": "DESIGN TOKENS — Paleta, tipografía y espaciado del proyecto",
+          "fontFamily": "Inter",
+          "fontSize": 11,
+          "fontWeight": "600",
+          "letterSpacing": 2
+        },
+        {
+          "type": "frame",
+          "id": "color_row",
+          "name": "colors",
+          "layout": "horizontal",
+          "gap": 16,
+          "children": [
+            {
+              "type": "frame",
+              "id": "swatch_primary",
+              "name": "swatch",
+              "width": 64,
+              "height": 64,
+              "cornerRadius": 12,
+              "fill": "#003B73",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "swatch_primary_l",
+                  "fill": "#ffffff",
+                  "content": "Primary",
+                  "fontFamily": "Inter",
+                  "fontSize": 10
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "swatch_accent",
+              "name": "swatch",
+              "width": 64,
+              "height": 64,
+              "cornerRadius": 12,
+              "fill": "#00FF9F",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "swatch_accent_l",
+                  "fill": "#0a0f1e",
+                  "content": "Accent",
+                  "fontFamily": "Inter",
+                  "fontSize": 10
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "swatch_base",
+              "name": "swatch",
+              "width": 64,
+              "height": 64,
+              "cornerRadius": 12,
+              "fill": "#0a0f1e",
+              "stroke": "#1a2235",
+              "strokeWidth": 1,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "swatch_base_l",
+                  "fill": "#475569",
+                  "content": "Base",
+                  "fontFamily": "Inter",
+                  "fontSize": 10
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "swatch_surface",
+              "name": "swatch",
+              "width": 64,
+              "height": 64,
+              "cornerRadius": 12,
+              "fill": "#111827",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "swatch_surface_l",
+                  "fill": "#475569",
+                  "content": "Surface",
+                  "fontFamily": "Inter",
+                  "fontSize": 10
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "swatch_text",
+              "name": "swatch",
+              "width": 64,
+              "height": 64,
+              "cornerRadius": 12,
+              "fill": "#f0f4ff",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "swatch_text_l",
+                  "fill": "#0a0f1e",
+                  "content": "Text",
+                  "fontFamily": "Inter",
+                  "fontSize": 10
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "swatch_custom1",
+              "name": "swatch-custom",
+              "width": 64,
+              "height": 64,
+              "cornerRadius": 12,
+              "fill": "#1a2235",
+              "stroke": "#00FF9F",
+              "strokeWidth": 1,
+              "strokeDash": [4, 3],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "swatch_custom1_l",
+                  "fill": "#475569",
+                  "content": "+ Custom",
+                  "fontFamily": "Inter",
+                  "fontSize": 10
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "type_row",
+          "name": "typography",
+          "layout": "horizontal",
+          "gap": 32,
+          "children": [
+            {
+              "type": "text",
+              "id": "type_display",
+              "name": "type-display",
+              "fill": "#f0f4ff",
+              "content": "Space Grotesk — Display",
+              "fontFamily": "Space Grotesk",
+              "fontSize": 22,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "type_body",
+              "name": "type-body",
+              "fill": "#94a3b8",
+              "content": "Inter — Body / UI",
+              "fontFamily": "Inter",
+              "fontSize": 15
+            },
+            {
+              "type": "text",
+              "id": "type_metric",
+              "name": "type-metric",
+              "fill": "#00FF9F",
+              "content": "Syne — Metrics",
+              "fontFamily": "Syne",
+              "fontSize": 18,
+              "fontWeight": "700"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "components_library",
+      "x": 0,
+      "y": 600,
+      "name": "🧩 COMPONENTS — Selección MCP magic",
+      "width": 1440,
+      "height": 480,
+      "fill": "#0a0f1e",
+      "layout": "vertical",
+      "gap": 24,
+      "padding": [32, 60],
+      "children": [
+        {
+          "type": "text",
+          "id": "comp_title",
+          "name": "section-title",
+          "fill": "#475569",
+          "content": "COMPONENTS — Elegir de lista MCP magic antes de implementar. Ver SKILL.md § Workflow.",
+          "fontFamily": "Inter",
+          "fontSize": 11,
+          "fontWeight": "600",
+          "letterSpacing": 2
+        },
+        {
+          "type": "frame",
+          "id": "comp_placeholder_row",
+          "name": "component-slots",
+          "layout": "horizontal",
+          "gap": 20,
+          "children": [
+            {
+              "type": "frame",
+              "id": "comp_slot_1",
+              "name": "[ Component 1 ]",
+              "width": 300,
+              "height": 200,
+              "cornerRadius": 16,
+              "fill": "#111827",
+              "stroke": "#1a2235",
+              "strokeWidth": 1,
+              "strokeDash": [6, 4],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "comp_slot_1_t",
+                  "fill": "#475569",
+                  "content": "Componente 1\n[ MCP magic ]",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "textAlign": "center"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "comp_slot_2",
+              "name": "[ Component 2 ]",
+              "width": 300,
+              "height": 200,
+              "cornerRadius": 16,
+              "fill": "#111827",
+              "stroke": "#1a2235",
+              "strokeWidth": 1,
+              "strokeDash": [6, 4],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "comp_slot_2_t",
+                  "fill": "#475569",
+                  "content": "Componente 2\n[ MCP magic ]",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "textAlign": "center"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "comp_slot_3",
+              "name": "[ Component 3 ]",
+              "width": 300,
+              "height": 200,
+              "cornerRadius": 16,
+              "fill": "#111827",
+              "stroke": "#1a2235",
+              "strokeWidth": 1,
+              "strokeDash": [6, 4],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "comp_slot_3_t",
+                  "fill": "#475569",
+                  "content": "Componente 3\n[ MCP magic ]",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "textAlign": "center"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "comp_slot_4",
+              "name": "+ Agregar",
+              "width": 300,
+              "height": 200,
+              "cornerRadius": 16,
+              "fill": "#0a0f1e",
+              "stroke": "#003B73",
+              "strokeWidth": 1,
+              "strokeDash": [6, 4],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "comp_slot_4_t",
+                  "fill": "#003B73",
+                  "content": "+ Agregar\ncomponente",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "textAlign": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "motion_plan",
+          "name": "motion-plan",
+          "width": "fill_container",
+          "cornerRadius": 12,
+          "fill": "#111827",
+          "padding": [16, 20],
+          "layout": "vertical",
+          "gap": 8,
+          "children": [
+            {
+              "type": "text",
+              "id": "motion_plan_title",
+              "fill": "#00FF9F",
+              "content": "⚡ MOTION PLAN",
+              "fontFamily": "Space Grotesk",
+              "fontSize": 13,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "motion_plan_body",
+              "fill": "#94a3b8",
+              "content": "Entrada: [ fadeIn / staggerReveal ] · Scroll: [ inView ] · Hover: [ magnetic / scale ] · Estados: [ shakeError / pulseBadge ]",
+              "fontFamily": "Inter",
+              "fontSize": 13
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "wireframes",
+      "x": 0,
+      "y": 1120,
+      "name": "📐 WIREFRAMES — Desktop / Mobile",
+      "width": 1440,
+      "height": 900,
+      "fill": "#080c18",
+      "layout": "horizontal",
+      "gap": 40,
+      "padding": [40, 60],
+      "children": [
+        {
+          "type": "frame",
+          "id": "wf_desktop",
+          "name": "Desktop — 1280px",
+          "width": 820,
+          "height": 820,
+          "cornerRadius": 16,
+          "fill": "#0a0f1e",
+          "stroke": "#1a2235",
+          "strokeWidth": 1,
+          "layout": "vertical",
+          "gap": 0,
+          "children": [
+            {
+              "type": "frame",
+              "id": "wf_desktop_bar",
+              "name": "browser-bar",
+              "width": "fill_container",
+              "height": 36,
+              "fill": "#1a2235",
+              "cornerRadius": [16, 16, 0, 0],
+              "layout": "horizontal",
+              "gap": 8,
+              "padding": [0, 16],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "dot1",
+                  "width": 10,
+                  "height": 10,
+                  "cornerRadius": 99,
+                  "fill": "#ef4444"
+                },
+                {
+                  "type": "frame",
+                  "id": "dot2",
+                  "width": 10,
+                  "height": 10,
+                  "cornerRadius": 99,
+                  "fill": "#f59e0b"
+                },
+                {
+                  "type": "frame",
+                  "id": "dot3",
+                  "width": 10,
+                  "height": 10,
+                  "cornerRadius": 99,
+                  "fill": "#22c55e"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "wf_desktop_content",
+              "name": "[ Diseño Desktop aquí ]",
+              "width": "fill_container",
+              "height": "fill_container",
+              "fill": "#0a0f1e",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "wf_desktop_hint",
+                  "fill": "#1a2235",
+                  "content": "Diseño desktop\n1280px",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "textAlign": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "wf_mobile",
+          "name": "Mobile — 375px",
+          "width": 260,
+          "height": 820,
+          "cornerRadius": 28,
+          "fill": "#0a0f1e",
+          "stroke": "#1a2235",
+          "strokeWidth": 1,
+          "layout": "vertical",
+          "gap": 0,
+          "children": [
+            {
+              "type": "frame",
+              "id": "wf_mobile_notch",
+              "name": "notch",
+              "width": "fill_container",
+              "height": 32,
+              "fill": "#1a2235",
+              "cornerRadius": [28, 28, 0, 0]
+            },
+            {
+              "type": "frame",
+              "id": "wf_mobile_content",
+              "name": "[ Diseño Mobile aquí ]",
+              "width": "fill_container",
+              "height": "fill_container",
+              "fill": "#0a0f1e",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "wf_mobile_hint",
+                  "fill": "#1a2235",
+                  "content": "Mobile\n375px",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "textAlign": "center"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "checklist_frame",
+      "x": 0,
+      "y": 2060,
+      "name": "✅ LAUNCH CHECKLIST",
+      "width": 1440,
+      "height": 320,
+      "fill": "#0a0f1e",
+      "layout": "horizontal",
+      "gap": 32,
+      "padding": [32, 60],
+      "children": [
+        {
+          "type": "frame",
+          "id": "checklist_design",
+          "name": "Design QA",
+          "width": 400,
+          "layout": "vertical",
+          "gap": 10,
+          "children": [
+            {
+              "type": "text",
+              "id": "cl_d_title",
+              "fill": "#f0f4ff",
+              "content": "Design QA",
+              "fontFamily": "Space Grotesk",
+              "fontSize": 15,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "cl_d_items",
+              "fill": "#94a3b8",
+              "content": "☐  Paleta de marca aplicada\n☐  Tipografía coherente (display + body)\n☐  Dark mode contrastes WCAG AA\n☐  Responsive: 375 / 768 / 1280px\n☐  Motion plan documentado",
+              "fontFamily": "Inter",
+              "fontSize": 13,
+              "lineHeight": 1.8
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "checklist_code",
+          "name": "Code QA",
+          "width": 400,
+          "layout": "vertical",
+          "gap": 10,
+          "children": [
+            {
+              "type": "text",
+              "id": "cl_c_title",
+              "fill": "#f0f4ff",
+              "content": "Code QA",
+              "fontFamily": "Space Grotesk",
+              "fontSize": 15,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "cl_c_items",
+              "fill": "#94a3b8",
+              "content": "☐  Svelte 5 runes (no slots legacy)\n☐  TypeScript sin any\n☐  Íconos Lucide (no emoji)\n☐  prefers-reduced-motion implementado\n☐  Estados: loading / empty / error",
+              "fontFamily": "Inter",
+              "fontSize": 13,
+              "lineHeight": 1.8
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "checklist_motion",
+          "name": "Motion QA",
+          "width": 400,
+          "layout": "vertical",
+          "gap": 10,
+          "children": [
+            {
+              "type": "text",
+              "id": "cl_m_title",
+              "fill": "#f0f4ff",
+              "content": "Motion QA",
+              "fontFamily": "Space Grotesk",
+              "fontSize": 15,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "cl_m_items",
+              "fill": "#94a3b8",
+              "content": "☐  Entrada staggered (onMount)\n☐  Scroll reveal (inView)\n☐  Hover feedback en CTAs\n☐  Contador animado en métricas\n☐  No animaciones en tablas/listas largas",
+              "fontFamily": "Inter",
+              "fontSize": 13,
+              "lineHeight": 1.8
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
