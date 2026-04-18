@@ -1,0 +1,16 @@
+:root {
+  /* argo-web — Palette 08: Marsala Classic */
+  /* Style: Clásico · Elegancia · Minimalista Femenino */
+  --color-primary:   #663635;  /* Marsala — marca, headers */
+  --color-accent:    #DEB3AD;  /* Dusty Rose — CTAs, highlights */
+  --bg-base:         #F9F1F0;  /* Ivory — Background principal */
+  --bg-surface:      #FFFFFF;  /* Cards, sidebars */
+  --text-primary:    #3D1F1F;  /* Texto oscuro cálido */
+  --color-secondary: #E1999F;  /* Rosewater — subheaders */
+  --color-muted:     #B08080;  /* Texto secundario rosado */
+}
+
+.btn-primary { background-color: var(--color-primary); color: #ffffff; }
+.btn-primary:hover { background-color: var(--color-accent); color: var(--text-primary); }
+.card { background-color: var(--bg-surface); color: var(--text-primary); border-left: 3px solid var(--color-primary); }
+.metric-highlight { color: var(--color-primary); font-weight: 700; }
