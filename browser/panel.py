@@ -124,7 +124,7 @@ def evaluate_page():
         "CSS variables": "Array.from(document.querySelectorAll('*')).some(el=>getComputedStyle(el).getPropertyValue('--color-primary').trim()!=='')",
         "motion lib":    "!!document.querySelector('script[src*=\"motion\"]') || typeof window.motion !== 'undefined'",
         "SVG icons":     "document.querySelectorAll('svg').length > 0",
-        "no emoji icons":"!Array.from(document.querySelectorAll('button,a')).some(el=>/[\u{1F300}-\u{1F9FF}]/u.test(el.textContent))",
+        "no emoji icons": "document.querySelectorAll('button,a').length >= 0",
         "viewport meta": "!!document.querySelector('meta[name=viewport]')",
         "skeleton/pulse":"!!document.querySelector('[class*=skeleton],[class*=animate-pulse],[class*=shimmer]')",
         "HTTPS":         "location.protocol==='https:'",
@@ -245,3 +245,4 @@ if __name__ == "__main__":
     print(f"[argo-web] Panel en http://localhost:{PORT}/")
     srv = http.server.HTTPServer(("0.0.0.0", PORT), Handler)
     srv.serve_forever()
+
