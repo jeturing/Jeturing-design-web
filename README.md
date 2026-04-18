@@ -1,61 +1,118 @@
-# argo-web — Jeturing Design System
+# argo-web — Design System Agnóstico
 
-> **Pencil-first · Approve · Build** — Workflow de diseño UI/UX para todos los proyectos Jeturing.
+> **Pencil-first · Approve · Build** — Workflow de diseño UI/UX para cualquier proyecto web. Independiente del stack y la marca.
 
-[![Product](https://img.shields.io/badge/product-argo--web-00FF9F?style=flat-square&labelColor=003B73)](https://github.com/jeturing/Jeturing-design-web)
-[![Stack](https://img.shields.io/badge/stack-Svelte5+Tailwind+Motion-blue?style=flat-square)](https://github.com/jeturing/Jeturing-design-web)
+[![Stack](https://img.shields.io/badge/stack-agnostic-00FF9F?style=flat-square&labelColor=003B73)](https://github.com/jeturing/Jeturing-design-web)
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
 
 ---
 
 ## ¿Qué es argo-web?
 
-`argo-web` es el **design system y workflow operativo** de Jeturing para la creación de interfaces web. Define:
+`argo-web` es el **design system y workflow operativo** para la creación de interfaces web. Define:
 
 - Un proceso obligatorio **Pencil → Approval → Code** para cada pantalla nueva
-- La skill `design-web` para AI assistants (Claude Code, GitHub Copilot, Cursor)
+- La skill `design-web` para AI assistants (Claude Code, GitHub Copilot, Cursor, etc.)
+- **10 paletas de color curadas** como alternativa a colores AI-genéricos
+- Selección interactiva de paleta y stack al crear cada proyecto
 - Templates reutilizables de documentación por pantalla
-- Utilidades de animación con Motion (JS/Svelte 5)
-- Componentes base del Glass Design System
+- Utilidades de animación con Motion (framework-agnostic: JS/TS puro)
+- **Sin dependencias de framework** — funciona con React, Svelte, Vue, Vanilla JS
 
 ---
 
-## Flujo de trabajo
+## Uso rápido
+
+```bash
+# Clonar como submódulo en tu proyecto
+git submodule add https://github.com/jeturing/Jeturing-design-web design-system
+
+# Crear nueva pantalla (interactivo — pregunta paleta y stack)
+bash design-system/scripts/new-screen.sh "login" "Pantalla de inicio de sesión"
+```
+
+El script te pregunta:
+1. ¿Qué paleta de color quieres? (10 opciones curadas)
+2. ¿Qué stack usas? (React / Svelte / Vue / Vanilla JS)
+
+Y genera `design/screens/login/` con los 6 archivos de documentación listos.
+
+---
+
+## Flujo Pencil → Approve → Build
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│  NUEVA PANTALLA / FEATURE WEB                                   │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  1. DISEÑO EN PENCIL                                            │
-│     └─ Crear pencil-new.pen en design/<screen-name>/            │
-│        • Tokens de color y tipografía                           │
-│        • Selección de componentes (lista MCP magic)             │
-│        • Motion plan documentado                                │
-│        • Wireframes Desktop + Mobile                            │
-│                                                                 │
-│  2. APROBACIÓN ✅                                                │
-│     └─ Firmar design/<screen-name>/02-approval.md               │
-│        • Sin aprobación NO se escribe código                    │
-│                                                                 │
-│  3. DOCUMENTACIÓN                                               │
-│     └─ Completar antes o durante el desarrollo:                 │
-│        • 03-flow-ascii.md  → Flujo ASCII elemento a elemento    │
-│        • 04-components.md  → Componentes seleccionados          │
-│        • 05-db-model.md    → Modelo BDA/DB si aplica            │
-│        • 06-motion-plan.md → Animaciones por elemento           │
-│                                                                 │
-│  4. DESARROLLO 1:1                                              │
-│     └─ Implementar exactamente el diseño aprobado               │
-│        • Svelte 5 + Tailwind + Motion                           │
-│        • Usar componentes elegidos en paso 1                    │
-│        • Motion plan implementado con motion.ts utilities       │
-│                                                                 │
-│  5. LAUNCH CHECKLIST                                            │
-│     └─ Completar checklist en el .pen antes de PR               │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+📐 DISEÑAR   →   ✅ APROBAR   →   💻 DESARROLLAR
 ```
+
+```
+design/screens/<nombre>/
+├── 01-pencil.pen         ← Diseño visual (Pencil) con paleta elegida
+├── 02-approval.md        ← ⛔ FIRMAR ANTES DE CODEAR
+├── 03-flow-ascii.md      ← Flujo ASCII elemento a elemento
+├── 04-components.md      ← Opciones MCP magic + selección final
+├── 05-db-model.md        ← Modelo de datos (o N/A)
+└── 06-motion-plan.md     ← Plan de animaciones Motion
+```
+
+---
+
+## Paletas de Color Curadas (10 opciones)
+
+Para evitar paletas genéricas de IA. El script las presenta con preview de colores:
+
+| # | Nombre | Estilo | Modo |
+|---|--------|--------|------|
+| 1 | **Dark Tech** | Azul oscuro + verde neón | Dark |
+| 2 | **Oxford Legal** | Azul marino + dorado | Light |
+| 3 | **Navy Power** | Navy + crimson | Dark |
+| 4 | **Dark Luxury** | Negro cálido + salmon | Dark |
+| 5 | **Warm Gold** | Puce + dorado | Dark |
+| 6 | **Warm Glam** | Carbón + shadow | Light |
+| 7 | **Forest Gold** | Verde oscuro + oro | Dark |
+| 8 | **Marsala Classic** | Marsala + dusty rose | Light |
+| 9 | **Deep Blue Premium** | Royal blue + blue gray | Dark |
+| 10 | **Trust Warm** | Puce + gold | Light |
+
+Ver tokens CSS completos en [`palettes/`](palettes/).
+
+**Uso en CSS (siempre variables, nunca valores hardcoded):**
+
+```css
+.card {
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border-left: 3px solid var(--color-primary);
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--text-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent);
+  color: var(--bg-base);
+}
+
+.metric-highlight {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+```
+
+---
+
+## Stacks Soportados
+
+| Stack | Notas |
+|-------|-------|
+| **React 18+** | Hooks, Server Components, Next.js |
+| **Svelte 5** | Runes, Snippets, SvelteKit |
+| **Vue 3** | Composition API, Pinia, Nuxt |
+| **Vanilla JS/TS** | Motion API directo, sin framework |
+| **Tailwind CSS 3/4** | Config con tokens incluida |
+| **CSS puro** | Variables CSS para cualquier setup |
 
 ---
 
@@ -63,78 +120,28 @@
 
 ```
 Jeturing-design-web/
-├── README.md                    # Este archivo
+├── README.md
 ├── WORKFLOW.md                  # Workflow detallado con reglas
 ├── skill/
 │   ├── SKILL.md                 # Skill para AI assistants
-│   ├── pencil-new.pen           # Template Pencil para proyectos
-│   └── motion.ts                # Utilidades Motion (framework-agnostic)
+│   ├── pencil-new.pen           # Template Pencil de proyecto
+│   ├── motion.ts                # Utilidades Motion (JS/TS puro)
+│   └── tailwind.config.ts       # Design tokens Tailwind
+├── palettes/
+│   ├── index.md                 # Catálogo visual
+│   ├── 01-dark-tech.css         # Dark Tech palette
+│   ├── 02-oxford-legal.css      # Oxford Legal palette
+│   └── ...                      # 10 paletas en total
 ├── templates/
-│   └── screen/
-│       ├── 01-pencil.pen        # Template Pencil por pantalla
-│       ├── 02-approval.md       # Template de aprobación
-│       ├── 03-flow-ascii.md     # Template flujo ASCII
-│       ├── 04-components.md     # Template componentes
-│       ├── 05-db-model.md       # Template modelo BDA
-│       └── 06-motion-plan.md    # Template plan de animaciones
+│   └── screen/                  # 6 templates por pantalla
 ├── scripts/
-│   └── new-screen.sh            # Scaffolding de nueva pantalla
+│   └── new-screen.sh            # Scaffolding interactivo
 └── examples/
-    └── saas-dashboard/          # Ejemplo completo
+    └── README.md
 ```
 
 ---
 
-## Instalación
+> **Regla fundamental:** No se escribe ni una línea de código sin un diseño Pencil aprobado.
 
-### En cualquier proyecto
-
-```bash
-# Clonar como submódulo (recomendado)
-git submodule add https://github.com/jeturing/Jeturing-design-web design-system
-
-# O clonar directo
-git clone https://github.com/jeturing/Jeturing-design-web design-system
-```
-
-### Script de nueva pantalla
-
-```bash
-# Desde la raíz del proyecto
-bash design-system/scripts/new-screen.sh "login" "Pantalla de inicio de sesión"
-# Crea: design/screens/login/ con todos los templates
-```
-
----
-
-## Paleta de marca SAJET
-
-| Token | Valor | Uso |
-|-------|-------|-----|
-| `--color-primary` | `#003B73` | Marca, headers, CTAs primarios |
-| `--color-accent` | `#00FF9F` | Highlights, estados activos, métricas |
-| `--bg-base` | `#0a0f1e` | Background principal dark |
-| `--bg-surface` | `#111827` | Cards, sidebars |
-| `--text-primary` | `#f0f4ff` | Texto principal |
-
----
-
-## Stack soportado
-
-| Stack | Notas |
-|-------|-------|
-| **Svelte 5** | Runes, Snippets, SvelteKit |
-| **React 18+** | Hooks, Server Components |
-| **Vue 3** | Composition API |
-| **Vanilla JS** | Motion API directo |
-| **Tailwind CSS 3/4** | Incluye config con tokens |
-
----
-
-## Contribuir
-
-Ver [WORKFLOW.md](WORKFLOW.md) para el proceso completo.
-
----
-
-*argo-web by [Jeturing](https://jeturing.com) — Design system que piensa antes de construir.*
+*argo-web by [Jeturing](https://jeturing.com)*
