@@ -1,0 +1,16 @@
+:root {
+  /* argo-web — Palette 09: Deep Blue Premium */
+  /* Style: Tech · Premium · Profundo */
+  --color-primary:   #091235;  /* Royal Blue — marca, headers */
+  --color-accent:    #88A9C3;  /* Blue Gray — highlights, métricas */
+  --bg-base:         #091235;  /* Background principal dark */
+  --bg-surface:      #14202E;  /* Cards, sidebars */
+  --text-primary:    #E8EEF8;  /* Texto principal claro */
+  --color-secondary: #2B4257;  /* Midnight Blue — subheaders */
+  --color-muted:     #5A7A9A;  /* Texto secundario azul suave */
+}
+
+.btn-primary { background-color: var(--color-accent); color: var(--bg-base); }
+.btn-primary:hover { background-color: var(--color-primary); color: var(--text-primary); }
+.card { background-color: var(--bg-surface); color: var(--text-primary); border-left: 3px solid var(--color-accent); }
+.metric-highlight { color: var(--color-accent); font-weight: 700; }
