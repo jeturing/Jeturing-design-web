@@ -1,221 +1,124 @@
-# argo-web — Workflow Obligatorio por Pantalla
+# argo-web — Workflow Pencil → Approve → Build
 
-> **Regla de oro**: Ninguna línea de código se escribe sin un diseño Pencil aprobado.
-
----
-
-## Reglas Fundamentales
-
-1. **Pencil-first**: toda pantalla nueva comienza con un archivo `.pen`
-2. **Approve-before-code**: el diseño debe ser aprobado explícitamente antes de implementar
-3. **1:1 implementation**: el código debe coincidir exactamente con el diseño aprobado
-4. **Folder-per-screen**: cada pantalla tiene su propia carpeta de documentación
-5. **Motion siempre**: toda pantalla tiene un motion plan documentado
-6. **Opciones antes de implementar**: siempre presentar lista de componentes al cliente/equipo
+> Cualquier stack · React · Svelte · Vue · Vanilla JS · cualquier framework
 
 ---
 
-## Estructura de Carpetas por Pantalla
+## El Flujo Obligatorio
 
 ```
-design/
-└── screens/
-    └── <nombre-pantalla>/
-        ├── 01-pencil.pen         # OBLIGATORIO — Diseño visual en Pencil
-        ├── 02-approval.md        # OBLIGATORIO — Firma de aprobación
-        ├── 03-flow-ascii.md      # Flujo de navegación en ASCII
-        ├── 04-components.md      # Lista de componentes seleccionados
-        ├── 05-db-model.md        # Modelo de base de datos (si aplica)
-        └── 06-motion-plan.md     # Plan de animaciones elemento a elemento
+IDEA ──▶ 01-PENCIL ──▶ 02-APPROVAL ──▶ 03-BUILD
+              ↑               ↑
+         Diseñar en        Firmar antes
+         Pencil primero    de escribir código
 ```
+
+**⛔ Regla #0: Sin 02-approval.md firmado, NO se empieza el desarrollo.**
 
 ---
 
-## Paso 1 — Diseño en Pencil
+## Paso a Paso
 
-### Qué debe contener el .pen
-
-El archivo `01-pencil.pen` debe incluir los siguientes frames:
-
-| Frame | Contenido | Obligatorio |
-|-------|-----------|-------------|
-| `PROJECT COVER` | Nombre, stack, versión, fecha | ✅ |
-| `DESIGN TOKENS` | Paleta de colores, tipografía | ✅ |
-| `COMPONENTS` | Slots de componentes + motion plan | ✅ |
-| `WIREFRAME Desktop` | Layout 1280px | ✅ |
-| `WIREFRAME Mobile` | Layout 375px | ✅ |
-| `LAUNCH CHECKLIST` | Design QA + Code QA + Motion QA | ✅ |
-| `DARK MODE` | Variante dark (si aplica) | ⚡ |
-| `STATES` | Loading / Empty / Error states | ⚡ |
-
-### Cómo crear el .pen
+### 1. Crear estructura de la pantalla
 
 ```bash
-# Copiar el template base del repo argo-web
-cp templates/screen/01-pencil.pen design/screens/<nombre>/01-pencil.pen
+bash design-system/scripts/new-screen.sh "login" "Pantalla de inicio de sesión"
+```
 
-# O usar el script de scaffolding
-bash scripts/new-screen.sh "<nombre>" "<descripción>"
+El script interactivo preguntará:
+- **Paleta** (1-10) — 10 paletas curadas listas para usar
+- **Stack** (Svelte / React / Vue / Vanilla / Otro)
+
+Genera en `design/screens/<slug>/`:
+```
+01-pencil.pen       ← Template Pencil listo para abrir
+02-approval.md      ← Lista de chequeo + tokens CSS de la paleta
+03-flow-ascii.md    ← Flujo elemento a elemento
+04-components.md    ← Selección de componentes MCP magic
+05-db-model.md      ← Modelo de datos / API endpoints
+06-motion-plan.md   ← Plan de animaciones con motion v12
+```
+
+### 2. Diseñar en Pencil
+
+- Abrir `01-pencil.pen` en **Pencil** (app de wireframing)
+- Aplicar los tokens CSS de la paleta elegida
+- Diseñar mobile (375px) y desktop (1280px)
+- Documentar cada elemento con su animación planeada
+
+### 3. ⛔ Aprobar antes de codear
+
+Completar y **firmar** `02-approval.md`:
+- Paleta aplicada con variables CSS (nunca hardcoded)
+- Responsive verificado
+- Motion plan completo
+- Componentes seleccionados
+- Contraste WCAG AA ≥ 4.5:1
+
+### 4. Elegir componentes (MCP magic)
+
+En `04-components.md`, antes de implementar:
+1. Usar MCP magic para buscar 3 variantes de cada componente
+2. Presentar opciones al equipo
+3. Documentar la selección
+
+### 5. Implementar 1:1 con el diseño
+
+- Seguir el diseño aprobado al píxel
+- Implementar animaciones del `06-motion-plan.md`
+- Usar **siempre** variables CSS (`var(--color-primary)`, nunca `#003B73`)
+
+### 6. Animar con Motion v12
+
+```typescript
+import { animate, stagger, inView } from 'motion'
+
+// Framework-agnostic: React useEffect, Svelte onMount, Vue onMounted
+animate('.hero', { opacity: [0, 1], y: [20, 0] }, { duration: 0.5 })
+animate('.card', { opacity: [0, 1], y: [16, 0] }, { delay: stagger(0.07) })
+inView('.section', ({ target }) => {
+  animate(target, { opacity: [0, 1], y: [24, 0] }, { duration: 0.6 })
+})
 ```
 
 ---
 
-## Paso 2 — Aprobación
+## Las 10 Paletas Curadas
 
-**Sin este paso no se escribe código.**
-
-Completar `02-approval.md` con:
-
-```markdown
-## Aprobación de Diseño — <Nombre de Pantalla>
-
-- [ ] Paleta de colores correcta
-- [ ] Tipografía alineada con design system
-- [ ] Responsive: 375px y 1280px revisados
-- [ ] Motion plan revisado y aprobado
-- [ ] Componentes seleccionados confirmados
-- [ ] Estados (loading, empty, error) presentes
-
-**Aprobado por:** _______________
-**Fecha:** _______________
-**Versión del diseño:** _______________
 ```
+01 Dark Tech          #003B73 + #00FF9F  SaaS, Tech Premium          [dark]
+02 Oxford Legal       #1B3A6B + #E8C96B  Corporativo, Legal          [light]
+03 Navy Power         #1B2E3C + #4B0000  Lujo, Alta Gama             [dark]
+04 Dark Luxury        #201315 + #E76D57  Elegante, Premium            [dark]
+05 Warm Gold          #532200 + #E1A140  Moderno, Lujoso              [dark]
+06 Warm Glam          #28221E + #7F6951  Real Estate Premium         [light]
+07 Forest Gold        #122620 + #D6AD60  Luxury, Naturaleza           [dark]
+08 Marsala Classic    #663635 + #DEB3AD  Clásico, Minimalista        [light]
+09 Deep Blue Premium  #091235 + #88A9C3  Tech, Profundo               [dark]
+10 Trust Warm         #532200 + #E1A140  Confianza, Calidez          [light]
+```
+
+Ver catálogo completo: [`palettes/index.md`](palettes/index.md)
 
 ---
 
-## Paso 3 — Flujo ASCII (`03-flow-ascii.md`)
+## Anti-patrones (prohibidos)
 
-Documentar el flujo de la pantalla elemento a elemento:
-
-```
-Ejemplo — Dashboard de Tenants:
-
-USER ARRIVES
-     │
-     ▼
-┌─────────────────┐
-│  Sidebar        │  ← fadeIn (0.3s)
-│  • Logo         │
-│  • Nav items    │  ← stagger (0.07s each)
-│  • Tenant sel.  │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────────────────────────┐
-│  Header                             │  ← fadeIn (delay: 0.1s)
-│  Breadcrumb  |  [+ New Tenant] CTA  │
-└─────────────────────────────────────┘
-         │
-         ▼
-┌─────────────────────────────────────┐
-│  Metric Cards (×4)                  │  ← stagger (delay: 0.08s each)
-│  ┌───┐ ┌───┐ ┌───┐ ┌───┐           │
-│  │ M1│ │ M2│ │ M3│ │ M4│           │  ← counter animate on mount
-│  └───┘ └───┘ └───┘ └───┘           │
-└─────────────────────────────────────┘
-         │
-         ▼
-┌─────────────────────────────────────┐
-│  [Chart 2/3]    [Table 1/3]         │  ← inView scroll reveal
-└─────────────────────────────────────┘
-```
+| ❌ Nunca | ✅ Siempre |
+|---------|-----------|
+| Colores hardcoded `#003B73` | Variables CSS `var(--color-primary)` |
+| Empezar a codear sin wireframe | Wireframe aprobado primero |
+| Spinner genérico de loading | Skeleton loader personalizado |
+| `setTimeout` para animaciones | `motion` v12 |
+| Emojis como íconos | SVG siempre |
+| Ignorar `prefers-reduced-motion` | Verificar siempre |
+| Colores AI-genéricos (azul/verde tipo Bootstrap) | Una de las 10 paletas curadas |
 
 ---
 
-## Paso 4 — Componentes (`04-components.md`)
+## Recursos
 
-Registrar la lista de opciones presentadas y la selección final:
-
-```markdown
-## Componentes — <Nombre de Pantalla>
-
-### Hero / Header
-**Opciones presentadas:**
-1. Option A — Glassmorphism header con blur
-2. Option B — Solid dark con border accent
-3. Option C — Minimal con breadcrumb inline
-
-**Seleccionado:** Option B — Solid dark con border accent
-**Fuente:** MCP magic / Design system base / Custom
-
-### Cards de métricas
-...
-```
-
----
-
-## Paso 5 — Modelo BDA (`05-db-model.md`)
-
-Solo completar si la pantalla consume o modifica datos:
-
-```markdown
-## Modelo BDA — <Nombre de Pantalla>
-
-### Tablas involucradas
-
-| Tabla | Operación | Campos usados |
-|-------|-----------|---------------|
-| `tenants` | SELECT | id, name, subdomain, status |
-| `users` | SELECT COUNT | tenant_id |
-
-### Queries principales
-
-```sql
--- Listado de tenants con conteo de usuarios
-SELECT t.id, t.name, t.subdomain, t.status,
-       COUNT(u.id) as user_count
-FROM tenants t
-LEFT JOIN users u ON u.tenant_id = t.id
-GROUP BY t.id;
-```
-
-### API endpoints
-
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| GET | `/api/tenants` | Listado paginado |
-| GET | `/api/tenants/:id/stats` | Métricas por tenant |
-```
-
----
-
-## Paso 6 — Motion Plan (`06-motion-plan.md`)
-
-```markdown
-## Motion Plan — <Nombre de Pantalla>
-
-### Librería
-`motion` v12 — `import { animate, stagger, inView } from "motion"`
-
-### Elementos y animaciones
-
-| Elemento | Trigger | Animación | Duración | Easing |
-|----------|---------|-----------|----------|---------|
-| Sidebar | onMount | fadeIn (x: -20→0) | 0.3s | easeOutExpo |
-| Nav items | onMount | stagger opacity+y | 0.5s | easeOutExpo |
-| Metric cards | onMount | stagger scale+opacity | 0.5s | easeOutExpo |
-| Counters | onMount | counterAnimate 0→N | 1.8s | easeOutExpo |
-| Sections | scroll | inView fadeIn+y | 0.6s | easeOutExpo |
-| CTA buttons | hover | magnetic x/y | 0.2s | easeOutExpo |
-| Error inputs | error | shakeError | 0.5s | easeInOut |
-
-### prefers-reduced-motion
-- [ ] Implementado — todas las animaciones envueltas en `shouldReduceMotion()`
-```
-
----
-
-## Checklist Final Pre-PR
-
-```
-☐ 01-pencil.pen — diseño completo con todos los frames
-☐ 02-approval.md — firmado por el responsable
-☐ 03-flow-ascii.md — flujo documentado elemento a elemento
-☐ 04-components.md — componentes seleccionados registrados
-☐ 05-db-model.md — modelo BDA completado (o N/A marcado)
-☐ 06-motion-plan.md — todas las animaciones documentadas
-☐ Implementación 1:1 con el diseño aprobado
-☐ prefers-reduced-motion implementado
-☐ TypeScript sin any
-☐ Tests visuales pasando
-```
+- **Paletas:** [`palettes/`](palettes/) — 10 CSS files listos
+- **Motion utils:** [`skill/motion.ts`](skill/motion.ts)
+- **Tailwind tokens:** [`skill/tailwind.config.ts`](skill/tailwind.config.ts)
+- **Pencil template:** [`skill/pencil-new.pen`](skill/pencil-new.pen)
