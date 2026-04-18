@@ -1,0 +1,16 @@
+:root {
+  /* argo-web — Palette 03: Navy Power */
+  /* Style: Lujo · Poder · Alta Gama */
+  --color-primary:   #1B2E3C;  /* Navy Blue — marca, headers */
+  --color-accent:    #4B0000;  /* Crimson — CTAs, highlights */
+  --bg-base:         #0C0C1E;  /* Background principal dark */
+  --bg-surface:      #1B2E3C;  /* Cards, sidebars */
+  --text-primary:    #F3E3E2;  /* Cream — texto principal */
+  --color-secondary: #0C0C1E;  /* Black profundo */
+  --color-muted:     #9BA3AF;  /* Texto secundario suave */
+}
+
+.btn-primary { background-color: var(--color-accent); color: var(--text-primary); }
+.btn-primary:hover { background-color: var(--color-primary); color: var(--text-primary); }
+.card { background-color: var(--bg-surface); color: var(--text-primary); border-left: 3px solid var(--color-accent); }
+.metric-highlight { color: var(--color-accent); font-weight: 700; }
